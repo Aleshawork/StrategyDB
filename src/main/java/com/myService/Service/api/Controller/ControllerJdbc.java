@@ -1,5 +1,6 @@
 package com.myService.Service.api.Controller;
 
+import com.myService.Service.Context;
 import com.myService.Service.Entity.Employees;
 import com.myService.Service.Service.EmployeesServiceJdbc;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,21 +16,24 @@ import java.util.List;
 public class ControllerJdbc {
 
     @Autowired
-    private EmployeesServiceJdbc employeesService;
+    private EmployeesServiceJdbc employeesServiceJdbc;
+
+    @Autowired
+    Context context;
 
 
 
+         @RequestMapping(value = "api2/getall", method = RequestMethod.GET)
+         public ResponseEntity<List<Employees>> getAllJdbc(){
+             context.setDataStrategy(employeesServiceJdbc);
 
-         @RequestMapping(value = "/api/getall", method = RequestMethod.GET)
-         public ResponseEntity<List<Employees>> getAll(){
-
-        return employeesService.select();
+        return context.select();
          }
 
-         @RequestMapping(value = "api/setempl",method = RequestMethod.POST)
-         public  ResponseEntity<Employees> setEmpl(@RequestBody Employees employees){
+         @RequestMapping(value = "api2/setempl",method = RequestMethod.POST)
+         public  ResponseEntity<Employees> setEmplJdbc(@RequestBody Employees employees){
 
-            return  employeesService.insert(employees);
+            return  context.insert(employees);
          }
 
 

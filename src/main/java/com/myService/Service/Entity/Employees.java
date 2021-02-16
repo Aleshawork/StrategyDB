@@ -26,7 +26,7 @@ public class Employees {
     private int salary;
 
     @Column(name="hire_date")
-    @JsonProperty("date")
+    @JsonProperty("hire_date")
     private Date date;
 
     public Employees() {
